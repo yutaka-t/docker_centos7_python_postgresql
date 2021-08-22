@@ -10,7 +10,8 @@ services:
       POSTGRES_USER: admin
       POSTGRES_PASSWORD: admin
     volumes:
-      - ${POSTGRES_SRC_PATH}:/docker-entrypoint-initdb.d
+      - ${POSTGRES_SETUP_PATH}:/docker-entrypoint-initdb.d
+      - ${POSTGRES_SRC_PATH}:/root/src
     networks:
       - dev-net
 
