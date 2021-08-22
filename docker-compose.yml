@@ -1,0 +1,33 @@
+version: '3'
+services:
+  PostgreSQL:
+    container_name: PostgresSQL
+    hostname: 'postgressql'
+    image: postgres
+    ports:
+      - 5433:5432
+    environment:
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: admin
+    volumes:
+      - ${POSTGRES_SRC_PATH}:/docker-entrypoint-initdb.d
+    networks:
+      - dev-net
+
+  centos7_python:
+      container_name: centos7_python
+      hostname: 'centos7_python'
+      build: "./docker/centos7_python"
+      tty: true
+      restart: always
+      volumes:
+          - ${PYTHON_SRC_PATH}:/root/src
+      depends_on:
+        - PostgreSQL
+      networks:
+          - dev-net
+
+networks:
+    dev-net:
+        driver: bridge
+
