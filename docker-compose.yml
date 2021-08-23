@@ -1,8 +1,8 @@
 version: '3'
 services:
-  PostgreSQL:
-    container_name: PostgresSQL
-    hostname: 'postgressql'
+  postgres:
+    container_name: postgres
+    hostname: 'postgres'
     image: postgres
     ports:
       - 5433:5432
@@ -15,16 +15,16 @@ services:
     networks:
       - dev-net
 
-  centos7_python:
-      container_name: centos7_python
-      hostname: 'centos7_python'
-      build: "./docker/centos7_python"
+  centos_python:
+      container_name: centos_python
+      hostname: 'centos_python'
+      build: "./docker/centos_python"
       tty: true
       restart: always
       volumes:
           - ${PYTHON_SRC_PATH}:/root/src
       depends_on:
-        - PostgreSQL
+        - postgres
       networks:
           - dev-net
 
