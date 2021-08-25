@@ -24,7 +24,12 @@ RUN pip${python_ver} install psycopg2 numpy pandas
 
 # LANG設定
 # Dockerで公式のCentOS 7をデフォルトで使用した場合などで、環境変数LANGが未定義となっている為
-RUN echo 'export LANG=en_US.UFT-8' >> /root/.bashrc
+RUN localedef -f UTF-8 -i ja_JP ja_JP.UTF-8
+ENV LANG="ja_JP.UTF-8" \
+    LANGUAGE="ja_JP:ja" \
+    LC_ALL="ja_JP.UTF-8"
+
+# postgresクライアントのパス設定
 RUN echo 'export PATH=/usr/pgsql-12/bin:$PATH' >> /root/.bashrc
 
 # インストールしたPythonにパスを通す
