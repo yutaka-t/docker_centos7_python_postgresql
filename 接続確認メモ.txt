@@ -11,8 +11,6 @@ psql -U admin
 ■テーブル作成
 CREATE TABLE work_users (id integer, name varchar(10));
 
-
-
 ■データ投入
 INSERT INTO work_users (id, name) VALUES (1, 'hoge'), (2, 'fuga');
 
@@ -20,13 +18,5 @@ INSERT INTO work_users (id, name) VALUES (1, 'hoge'), (2, 'fuga');
 
 ■IP確認(postgresql 側のIP確認)
 docker network inspect centos7_python_postgresql_dev-net
-
-■centos7_python 側で、以下のpythonスクリプト実行
-import psycopg2
-connection = psycopg2.connect("host=172.22.0.2 port=5432 dbname=admin user=admin password=admin")
-cur = connection.cursor()
-cur.execute("select * from work_users")
-for row in cur:
-    print(row)
 
 
